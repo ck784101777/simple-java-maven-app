@@ -40,9 +40,9 @@
               <addClasspath>true</addClasspath>
               <classpathPrefix>lib/</classpathPrefix>
               <mainClass>com.mycompany.app.App</mainClass>
-              <finalName>${project.artifactId}-${project.version}-${timestamp}</finalName>
             </manifest>
           </archive>
+          <finalName>${project.artifactId}-${project.version}-${timestamp}</finalName>
         </configuration>
       </plugin>
       <plugin>
