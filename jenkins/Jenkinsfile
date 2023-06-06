@@ -26,5 +26,23 @@ pipeline {
                 sh './jenkins/scripts/deliver.sh'
             }
         }
+		stage('Upload jar to Nexus'){
+			steps {
+				nexusArtifactUploader artifacts: [
+				[
+				artifactId: 'my-app', 
+				classifier: '', file: 
+				'target/my-app-1.0-SNAPSHOT.jar',
+				type: 'jar'
+				]
+			  ], 
+				credentialsId: 'nexus-credentials',
+				groupId: 'com.mycompany.app',
+				nexusUrl: '192.168.22.119:8081',
+				nexusVersion: 'nexus3', protocol: 
+				'http', repository: 'http://192.168.22.119:8081/repository/simple-java-maven-app/', 
+				version: '1.0-SNAPSHOT'
+			}
+		}
     }
 }
