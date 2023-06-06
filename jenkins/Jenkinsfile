@@ -5,10 +5,14 @@ pipeline {
             args '-v /root/.m2:/root/.m2'
         }
     }
+    environment {
+
+       _time = sh(script: "echo `date '+%Y%m%d%H%M%S'`", returnStdout: true).trim()
+    }
     stages {
         stage('Build') {
             steps {
-                sh 'mvn -B -DskipTests clean package -Dtimestamp=$(date +%Y%m%d%H%M)'
+                sh 'mvn -B -DskipTests clean package -Dtimestamp=$(_time)'
             }
         }
         stage('Test') {
@@ -32,7 +36,7 @@ pipeline {
 				[
 				artifactId: 'my-app', 
 				classifier: '', 
-				file: 'target/my-app-1.0.jar',
+				file: 'target/my-app-1.0-$(_time).jar',
 				type: 'jar'
 				]
 			  ], 
